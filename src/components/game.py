@@ -16,9 +16,7 @@
 from src.components.node import Node
 from src.components.player import Player
 from src.turn_controllers.change_turn import change_turn
-import json
-from flask import current_app
-import threading
+# import json
 from src.tools.calculate_number_of_troops import calculate_number_of_troops
 
 
@@ -112,11 +110,11 @@ class Game:
         for player in self.players.values():
             if not player.is_ready:
                 return
-            
+
         # Create a new thread for start the game
-        turn_thread = threading.Thread(target=change_turn, args=(self,))
-        turn_thread.start()
-        self.game_started = True
+        # turn_thread = threading.Thread(target=change_turn, args=(self,))
+        # turn_thread.start()
+        # self.game_started = True
 
     def start_turn(self):
         # this function will be called at the beginning of each turn
