@@ -16,7 +16,7 @@
 from src.components.node import Node
 from src.components.player import Player
 from src.turn_controllers.change_turn import change_turn
-# import json
+import json
 from src.tools.calculate_number_of_troops import calculate_number_of_troops
 
 
