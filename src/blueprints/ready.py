@@ -5,7 +5,7 @@ that means it has a server on the port that it said in the login API
 
 import os
 
-def ready_func(main_game, player_id):
+def ready(main_game, player_id):
     try:
         main_game.players[player_id].is_ready = True
         # disable proxy and vpn for the player IP 
