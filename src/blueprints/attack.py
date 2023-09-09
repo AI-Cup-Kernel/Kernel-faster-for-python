@@ -1,15 +1,7 @@
-from flask import Blueprint , jsonify , current_app
-from flask import request
+
 import random
 
-attack = Blueprint('attack',__name__)
-
-main_game = current_app.config['main_game']
-
-@attack.route('/attack',methods=['POST'])
-@current_app.config['token_required']
-@current_app.config['check_player']
-def attack_func(player_id):
+def attack(attacking_id: int, target_id: int, fraction: float, move_fraction: float, main_game, player_id):
     # this API used to attack a node from another node 
 
     # the body of the request should be like this
@@ -20,93 +12,51 @@ def attack_func(player_id):
     
     # check if the game is in the turn state
     if main_game.game_state != 2:
-        return jsonify({'error':'The game is not in the turn state'}),400
+        return {'error':'The game is not in the turn state'}
     
     # check if the game is in the attack state
     if main_game.state != 2:
-        return jsonify({'error':'The game is not in the attack state'}),400 
-
-    # check the body of the request 
-    data = request.form.to_dict()
-
-    # check if the body has the attacking_id field
-    if 'attacking_id' not in data:
-        return jsonify({'error':'attacking_id is not provided'}),400
-    
-    # check if the attacking_id is integer
-    try:
-        attacking_id = int(data['attacking_id'])
-    except:
-        return jsonify({'error':'attacking_id is not valid it should be integer'}),400
+        return {'error':'The game is not in the attack state'}
     
     # check if the attacking_id is valid
     if attacking_id not in main_game.nodes.keys():
-        return jsonify({'error':'attacking_id is not valid'}),400
+        return {'error':'attacking_id is not valid'}
     
     # check if the attacking_id has a owner
-    if main_game.nodes[attacking_id].owner == None:
-        return jsonify({'error':'attacking_id does not have any owner'}),400
+    if main_game.nodes[attacking_id].owner is None:
+        return {'error':'attacking_id does not have any owner'}
     
     # check if the attacking_id is owned by the player
     if main_game.nodes[attacking_id].owner.id != player_id:
-        return jsonify({'error':'attacking_id is not owned by the player'}),400
+        return {'error':'attacking_id is not owned by the player'}
 
-    # check if it has the target_id field
-    if 'target_id' not in data:
-        return jsonify({'error':'target_id is not provided'}),400
-    
-    # check if the target_id is integer
-    try:
-        target_id = int(data['target_id'])
-    except:
-        return jsonify({'error':'target_id is not valid it should be integer'}),400
-    
     # check if the target_id is valid
     if target_id not in main_game.nodes.keys():
-        return jsonify({'error':'target_id is not valid'}),400
+        return {'error':'target_id is not valid'}
     
     # check if the target_id has a owner
-    if main_game.nodes[target_id].owner == None:
-        return jsonify({'error':'target_id does not have any owner'}),400
+    if main_game.nodes[target_id].owner is None:
+        return {'error':'target_id does not have any owner'}
     
     # check if the target_id is not owned by the player
     if main_game.nodes[target_id].owner.id == player_id:
-        return jsonify({'error':'target_id is owned by the player'}),400
-    
-    # check if the body has the fraction field
-    if 'fraction' not in data:
-        return jsonify({'error':'fraction is not provided'}),400
-    
-    # check if the fraction is float
-    try:
-        fraction = float(data['fraction'])
-    except:
-        return jsonify({'error':'fraction is not valid it should be float'}),400
-    
-    # check if body has the move_fraction field
-    if 'move_fraction' not in data:
-        return jsonify({'error':'move_fraction is not provided'}),400
-    
-    try:
-        move_fraction = float(data['move_fraction'])
-    except:
-        return jsonify({'error':'move_fraction is not valid it should be float'}),400
+        return {'error':'target_id is owned by the player'}
 
     # check if move fraction is between 0 and 1
     if move_fraction < 0 or move_fraction > 1:
-        return jsonify({'error':'move_fraction should be between 0 and 1'}),400
+        return {'error':'move_fraction should be between 0 and 1'}
     
     # check if the player has at least 2 troops in the attacking node
     if main_game.nodes[attacking_id].number_of_troops < 2:
-        return jsonify({'error':'attacking node does not have enough troops'}),400
+        return {'error':'attacking node does not have enough troops'}
     
     # check if the fraction is a positive number
     if fraction < 0:
-        return jsonify({'error':'fraction should be positive'}),400
+        return {'error':'fraction should be positive'}
 
     # check if the attacker_id and target_id are connected
     if main_game.nodes[attacking_id] not in main_game.nodes[target_id].adj_main_map:
-        return jsonify({'error':'attacking_id and target_id are not connected'}),400
+        return {'error':'attacking_id and target_id are not connected'}
 
     attacker_troops = main_game.nodes[attacking_id].number_of_troops # number of troops in the attacking node
     target_troops = main_game.nodes[target_id].number_of_troops +  main_game.nodes[target_id].number_of_fort_troops # number of troops in the target node
@@ -198,6 +148,6 @@ def attack_func(player_id):
         main_game.print(f"player {player_id} attacked node {target_id} from node {attacking_id} with fraction {fraction}. successful: {target_troops <= 0}")
 
     if target_troops <= 0:
-        return jsonify({'message':'attack successful', 'won': 1}),200
+        return {'message':'attack successful', 'won': 1}
     else:
-        return jsonify({'message':'attack successful', 'won': 0}),200
+        return {'message':'attack successful', 'won': 0}
