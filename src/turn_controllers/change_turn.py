@@ -6,7 +6,6 @@
 
 
 import time
-from src.turn_controllers.start_turn import start_turn_request, end_turn_request
 from src.turn_controllers.check_finish import check_finish
 import datetime
 
@@ -28,8 +27,7 @@ def change_turn(main_game):
         # show number of troops that the player did not put on the map
         if main_game.debug:
             main_game.print(f"player {player_id} has {main_game.player_turn.number_of_troops_to_place} troops to put on the map")
-        # request the player to play
-        resp = start_turn_request(player_id, main_game)
+
 
         # wait for the player to play
         if main_game.game_state == 2:
@@ -39,8 +37,7 @@ def change_turn(main_game):
         # end the turn to add the logs for client
         main_game.end_turn()
 
-        # announce the end of the turn to the player
-        end_turn_request(player_id, main_game)
+
         if main_game.debug:
             main_game.print("end turn: "+ datetime.datetime.now().strftime("%H:%M:%S"))
         # check if the game is finished

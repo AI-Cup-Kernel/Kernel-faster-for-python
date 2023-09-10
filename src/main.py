@@ -43,31 +43,9 @@ debug = main_game.config['debug']
 main_game.debug = debug
 
 
-
-# register the blueprints
-
-# import blueprints
-from src.blueprints.index import index
-from src.blueprints.login import login
-from src.blueprints.ready import ready
-from src.blueprints.get_owners import get_owners
-from src.blueprints.get_troops_count import get_troops_count
-from src.blueprints.get_state import get_state
-from src.blueprints.get_turn_number import get_turn_number
-from src.blueprints.get_adj import get_adj
-from src.blueprints.next_state import next_state
-from src.blueprints.put_one_troop import put_one_troop
-from src.blueprints.put_troop import put_troop
-from src.blueprints.get_player_id import get_player_id
-from src.blueprints.attack import attack
-from src.blueprints.move_troop import move_troop
-from src.blueprints.get_strategic_nodes import get_strategic_nodes
-from src.blueprints.get_number_of_troops_to_put import get_number_of_troops_to_put
-from src.blueprints.get_reachable import get_reachable
-from src.blueprints.get_number_of_fort_troops import get_number_of_fort_troops
-from src.blueprints.fort import fort
-
 # Todo: Build Clients
-
+from player0.src.game import Game as player0
+p0 = player0(main_game)
+print(p0.get_owners())
 
 # Todo: run the server

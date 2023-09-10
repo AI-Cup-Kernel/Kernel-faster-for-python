@@ -8,8 +8,6 @@ import os
 def ready(main_game, player_id):
     try:
         main_game.players[player_id].is_ready = True
-        # disable proxy and vpn for the player IP 
-        os.environ['NO_PROXY'] = main_game.players[player_id].ip
         output_dict = {"message": "every thing is ok, you should wait for other players to be ready"}
         main_game.check_all_players_ready()
         return output_dict
