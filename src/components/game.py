@@ -103,7 +103,7 @@ class Game:
             return
         
         # check if all players were logged in
-        if len(self.players) != current_app.config['config']['number_of_players']:
+        if len(self.players) != self.config['number_of_players']:
             return
          
          # check if all players are ready
@@ -111,10 +111,7 @@ class Game:
             if not player.is_ready:
                 return
 
-        # Create a new thread for start the game
-        # turn_thread = threading.Thread(target=change_turn, args=(self,))
-        # turn_thread.start()
-        # self.game_started = True
+        self.game_started = True
 
     def start_turn(self):
         # this function will be called at the beginning of each turn

@@ -1,17 +1,10 @@
 import requests
 from src.blueprints import BluePrints
 
-class Game:
+class ClientGame:
     def __init__(self, main_game) -> None:
         self.main_game = main_game
         self.blueprints = BluePrints
-        self.__initializer()
-        self.player_id = None
-
-    def __initializer(self):
-        output = self.blueprints.login(self.main_game)
-        self.player_id = output['player_id']
-        print(self.blueprints.ready(self.main_game, self.player_id))
 
     def get_owners(self):
         """
@@ -81,7 +74,7 @@ class Game:
         """
             returns the id of the player
         """
-        return self.blueprints.get_player_id(self.player_id)
+        return self.blueprints.get_player_id(self.main_game)
 
     def attack(self, attacking_id, target_id, fraction, move_fraction):
         """

@@ -6,7 +6,7 @@ def fort(node_id: int, troop_count: int, main_game, player_id):
     ## node_id : the id of the node that will be fortified
     ## troop_count : the number of troops that will be fortified
 
-    # check if the Game is in the turn state
+    # check if the ClientGame is in the turn state
     if main_game.game_state != 2:
         return {'error':'The game is not in the turn state'}
     

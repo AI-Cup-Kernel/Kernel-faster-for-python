@@ -8,6 +8,7 @@
 
 from src.components.game import Game
 import src.tools.read_config as read_config
+from src.turn_controllers.change_turn import change_turn
 import os
 import argparse
 
@@ -44,8 +45,18 @@ main_game.debug = debug
 
 
 # Todo: Build Clients
-from player0.src.game import Game as player0
-p0 = player0(main_game)
-print(p0.get_owners())
+from src.components.client_game import ClientGame
+from player0.initialize import initializer as initializer_p0
+from player1.initialize import initializer as initializer_p1
+from player2.initialize import initializer as initializer_p2
+
+client_game = ClientGame(main_game)
+
+initializer_p0(client_game)
+initializer_p1(client_game)
+initializer_p2(client_game)
 
 # Todo: run the server
+
+if main_game.game_started:
+    change_turn(main_game, client_game)
