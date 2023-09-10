@@ -9,6 +9,7 @@
 # initialize the player_id
 player_id = 0
 
+
 def login(main_game):
     global player_id
     # make sure there is no more than number_of_players players

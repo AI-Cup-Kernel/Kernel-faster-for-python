@@ -6,7 +6,6 @@ flag = False
 
 def initializer(game: ClientGame):
     print(game.get_player_id())
-    return
     strategic_nodes = game.get_strategic_nodes()['strategic_nodes']
     score = game.get_strategic_nodes()['score']
     strategic_nodes = list(zip(strategic_nodes, score))
@@ -40,7 +39,6 @@ def initializer(game: ClientGame):
 
 
 def turn(game: ClientGame):
-    return
     global flag
     print(game.get_number_of_troops_to_put())
     owner = game.get_owners()

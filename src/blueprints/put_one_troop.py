@@ -6,18 +6,18 @@ def put_one_troop(node_id: int, main_game, player_id):
 
     # check if the player just put one Troop in a init turn
     if main_game.state != 1:
-        return {'error':'You can not put more than one troop in a turn'}
+        return {'error': 'You can not put more than one troop in a turn'}
     # check if the game is in the initial troop putting state
     if main_game.game_state != 1:
-        return {'error':'The game is not in the initial troop putting state'}
-    
+        return {'error': 'The game is not in the initial troop putting state'}
+
     # check if the player has enough troops to put
     if main_game.player_turn.number_of_troops_to_place <= 0:
-        return {'error':'You have no more initial troops to put'}
+        return {'error': 'You have no more initial troops to put'}
 
     # check if the node_id is valid
     if node_id not in main_game.nodes.keys():
-        return {'error':'node_id is not valid'}
+        return {'error': 'node_id is not valid'}
 
     # check the ownership status of the node
     if main_game.nodes[node_id].owner is None:
@@ -25,8 +25,8 @@ def put_one_troop(node_id: int, main_game, player_id):
         main_game.add_node_to_player(node_id, player_id)
 
     elif main_game.nodes[node_id].owner.id != player_id:
-        return {'error':'This node is already owned by another player'}
-    
+        return {'error': 'This node is already owned by another player'}
+
     # add one troop to the node and subtract one from the player
     main_game.nodes[node_id].number_of_troops += 1
     main_game.player_turn.number_of_troops_to_place -= 1
@@ -39,4 +39,4 @@ def put_one_troop(node_id: int, main_game, player_id):
     if main_game.debug:
         main_game.print(f"player {player_id} put one troop on node {node_id}")
 
-    return {'message':'troop added successfully'}
+    return {'message': 'troop added successfully'}

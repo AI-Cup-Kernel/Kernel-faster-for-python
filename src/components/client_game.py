@@ -61,14 +61,14 @@ class ClientGame:
             puts one troop in the node with the given id
             this function can only be used in the put_troop state in the initialize function
         """
-        return self.blueprints.put_one_troop(node_id, self.main_game, self.player_id)
+        return self.blueprints.put_one_troop(node_id, self.main_game, self.get_player_id()['player_id'])
 
     def put_troop(self, node_id, num):
         """
             puts num troops in the node with the given id
             this function can only be used in the put_troop state in the turn function
         """
-        return self.blueprints.put_troop(node_id, num, self.main_game, self.player_id)
+        return self.blueprints.put_troop(node_id, num, self.main_game, self.get_player_id()['player_id'])
 
     def get_player_id(self):
         """
@@ -80,13 +80,13 @@ class ClientGame:
         """
             attacks the target node with the given fraction of troops
         """
-        return self.blueprints.attack(attacking_id, target_id, fraction, move_fraction, self.main_game, self.player_id)
+        return self.blueprints.attack(attacking_id, target_id, fraction, move_fraction, self.main_game, self.get_player_id()['player_id'])
 
     def move_troop(self, source, destination, troop_count):
         """
             moves the given number of troops from the source node to the destination node
         """
-        return self.blueprints.move_troop(source, destination, troop_count, self.main_game, self.player_id)
+        return self.blueprints.move_troop(source, destination, troop_count, self.main_game, self.get_player_id()['player_id'])
 
     def get_strategic_nodes(self):
         """
@@ -122,4 +122,4 @@ class ClientGame:
         """
             fortifies the node with the given number of troops
         """
-        self.blueprints.fort(node_id, troop_count, self.main_game, self.player_id)
+        self.blueprints.fort(node_id, troop_count, self.main_game, self.get_player_id()['player_id'])

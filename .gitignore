@@ -9,3 +9,6 @@ result_log/
 debug_log/
 src/__pycache__/
 .idea
+player0/__pycache__
+player1/__pycache__
+player2/__pycache__

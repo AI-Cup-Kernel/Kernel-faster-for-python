@@ -23,7 +23,6 @@ def change_turn(main_game, client_game):
 
         # add the turn number to the logs 
         if main_game.debug:
-            print("start turn:", main_game.turn_number)
             main_game.print("----------------------------- start turn: " + str(
                 main_game.turn_number) + "----------------------------")
             main_game.print(
