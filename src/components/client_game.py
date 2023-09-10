@@ -1,10 +1,17 @@
 import requests
 from src.blueprints import BluePrints
 
+
 class ClientGame:
     def __init__(self, main_game) -> None:
         self.main_game = main_game
         self.blueprints = BluePrints
+
+    def __check_int(self, n):
+        return n if type(n) == int else int(n)
+
+    def __check_float(self, n):
+        return n if type(n) == float else float(n)
 
     def get_owners(self):
         """
@@ -56,18 +63,21 @@ class ClientGame:
         """
         return self.blueprints.next_state(self.main_game)
 
-    def put_one_troop(self, node_id: int):
+    def put_one_troop(self, node_id):
         """
             puts one troop in the node with the given id
             this function can only be used in the put_troop state in the initialize function
         """
+        node_id = self.__check_int(node_id)
         return self.blueprints.put_one_troop(node_id, self.main_game, self.get_player_id()['player_id'])
 
-    def put_troop(self, node_id: int, num):
+    def put_troop(self, node_id, num):
         """
             puts num troops in the node with the given id
             this function can only be used in the put_troop state in the turn function
         """
+        node_id = self.__check_int(node_id)
+        num = self.__check_int(num)
         return self.blueprints.put_troop(node_id, num, self.main_game, self.get_player_id()['player_id'])
 
     def get_player_id(self):
@@ -76,17 +86,26 @@ class ClientGame:
         """
         return self.blueprints.get_player_id(self.main_game)
 
-    def attack(self, attacking_id: int, target_id: int, fraction: float, move_fraction:float):
+    def attack(self, attacking_id, target_id, fraction, move_fraction):
         """
             attacks the target node with the given fraction of troops
         """
-        return self.blueprints.attack(attacking_id, target_id, fraction, move_fraction, self.main_game, self.get_player_id()['player_id'])
+        attacking_id = self.__check_int(attacking_id)
+        target_id = self.__check_int(target_id)
+        fraction = self.__check_float(fraction)
+        move_fraction = self.__check_float(move_fraction)
+        return self.blueprints.attack(attacking_id, target_id, fraction, move_fraction, self.main_game,
+                                      self.get_player_id()['player_id'])
 
-    def move_troop(self, source: int, destination: int, troop_count):
+    def move_troop(self, source, destination, troop_count):
         """
             moves the given number of troops from the source node to the destination node
         """
-        return self.blueprints.move_troop(source, destination, troop_count, self.main_game, self.get_player_id()['player_id'])
+        source = self.__check_int(source)
+        destination = self.__check_int(destination)
+        troop_count = self.__check_int(troop_count)
+        return self.blueprints.move_troop(source, destination, troop_count, self.main_game,
+                                          self.get_player_id()['player_id'])
 
     def get_strategic_nodes(self):
         """
@@ -102,11 +121,12 @@ class ClientGame:
         """
         return self.blueprints.get_number_of_troops_to_put(self.main_game)
 
-    def get_reachable(self, node_id: int):
+    def get_reachable(self, node_id):
         """
             returns a dictionary of "reachable" key and a list of reachable nodes
             {"reachable": [node_id, ...]}
         """
+        node_id = self.__check_int(node_id)
         return self.blueprints.get_reachable(node_id, self.main_game)
 
     def get_number_of_fort_troops(self):
@@ -118,8 +138,10 @@ class ClientGame:
         """
         return self.blueprints.get_number_of_fort_troops(self.main_game)
 
-    def fort(self, node_id: int, troop_count):
+    def fort(self, node_id, troop_count):
         """
             fortifies the node with the given number of troops
         """
+        node_id = self.__check_int(node_id)
+        troop_count = self.__check_int(troop_count)
         self.blueprints.fort(node_id, troop_count, self.main_game, self.get_player_id()['player_id'])
