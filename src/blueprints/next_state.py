@@ -1,4 +1,4 @@
-def next_state(main_game, player_id):
+def next_state(main_game):
     ''' 
     This function is used to change the state of the game to the next state 
     1: put troop state

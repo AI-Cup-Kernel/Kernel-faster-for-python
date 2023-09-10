@@ -54,16 +54,16 @@ class ClientGame:
         """
             changes the state of the turn to the next state
         """
-        return self.next_state()
+        return self.blueprints.next_state(self.main_game)
 
-    def put_one_troop(self, node_id):
+    def put_one_troop(self, node_id: int):
         """
             puts one troop in the node with the given id
             this function can only be used in the put_troop state in the initialize function
         """
         return self.blueprints.put_one_troop(node_id, self.main_game, self.get_player_id()['player_id'])
 
-    def put_troop(self, node_id, num):
+    def put_troop(self, node_id: int, num):
         """
             puts num troops in the node with the given id
             this function can only be used in the put_troop state in the turn function
@@ -76,13 +76,13 @@ class ClientGame:
         """
         return self.blueprints.get_player_id(self.main_game)
 
-    def attack(self, attacking_id, target_id, fraction, move_fraction):
+    def attack(self, attacking_id: int, target_id: int, fraction: float, move_fraction:float):
         """
             attacks the target node with the given fraction of troops
         """
         return self.blueprints.attack(attacking_id, target_id, fraction, move_fraction, self.main_game, self.get_player_id()['player_id'])
 
-    def move_troop(self, source, destination, troop_count):
+    def move_troop(self, source: int, destination: int, troop_count):
         """
             moves the given number of troops from the source node to the destination node
         """
@@ -102,7 +102,7 @@ class ClientGame:
         """
         return self.blueprints.get_number_of_troops_to_put(self.main_game)
 
-    def get_reachable(self, node_id):
+    def get_reachable(self, node_id: int):
         """
             returns a dictionary of "reachable" key and a list of reachable nodes
             {"reachable": [node_id, ...]}
@@ -118,7 +118,7 @@ class ClientGame:
         """
         return self.blueprints.get_number_of_fort_troops(self.main_game)
 
-    def fort(self, node_id, troop_count):
+    def fort(self, node_id: int, troop_count):
         """
             fortifies the node with the given number of troops
         """

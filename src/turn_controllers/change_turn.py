@@ -48,7 +48,7 @@ def change_turn(main_game, client_game):
                 turn_p2(client_game)
             else:
                 print('wrong id:' + str(player_id))
-            time.sleep(main_game.config["turn_time"])
+            # time.sleep(main_game.config["turn_time"])
         elif main_game.game_state == 1:
             if player_id == 0:
                 initializer_p0(client_game)
@@ -58,11 +58,12 @@ def change_turn(main_game, client_game):
                 initializer_p2(client_game)
             else:
                 print('wrong id:' + str(player_id))
-            time.sleep(main_game.config["init_time"])
+            # time.sleep(main_game.config["init_time"])
         # end the turn to add the logs for client
         main_game.end_turn()
 
         if main_game.debug:
             main_game.print("end turn: " + datetime.datetime.now().strftime("%H:%M:%S"))
         # check if the game is finished
-        check_finish(main_game)
+        if check_finish(main_game):
+            break

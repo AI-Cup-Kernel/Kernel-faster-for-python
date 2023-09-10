@@ -21,7 +21,7 @@ def calculate_score(main_game):
         scores.append((number_of_nodes * 1000) + number_of_troops + strategic_score)
     return scores 
 
-def check_finish(main_game):
+def check_finish(main_game) -> bool:
     # find the number of strategic nodes for each player    
     players_strategic_nodes_count = []
     for player in main_game.players.values():
@@ -39,14 +39,15 @@ def check_finish(main_game):
             scores = calculate_score(main_game)
             scores[i] += sum(scores)
             game_finished(main_game, scores)
-            return
+            return True
     # check if the game is finished
     if main_game.turn_number >= int(main_game.config["number_of_turns"]):
         if main_game.debug:
             main_game.print("game finished because of number of turns")
         scores = calculate_score(main_game)
         game_finished(main_game, scores)
-        return
+        return True
+    return False
 
 def game_finished(main_game, score):
     # finish the game
@@ -88,4 +89,3 @@ def game_finished(main_game, score):
             os.makedirs("debug_log")
         with open("debug_log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", "w") as debug_log_file:
             debug_log_file.write(main_game.debug_logs)
-    main_game.finish_func()
