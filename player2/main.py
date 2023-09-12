@@ -85,8 +85,9 @@ def turn(game: ClientGame):
     print(game.get_reachable(int(max_node)))
     x = game.get_reachable(int(max_node))['reachable']
     x.remove(int(max_node))
-    destination = random.choice(x)
-    print(game.move_troop(int(max_node), int(destination), 1))
+    if len(x) > 0:
+        destination = random.choice(x)
+        print(game.move_troop(int(max_node), int(destination), 1))
 
     print(game.next_state())
 
