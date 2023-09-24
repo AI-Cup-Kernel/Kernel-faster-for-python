@@ -108,8 +108,8 @@ def attack(attacking_id: int, target_id: int, fraction: float, move_fraction: fl
 
         while attacker_troops - move_troops < 1:
             move_troops -= 1
-            if move_troops <= 0 or (attacker_troops - move_troops) < 1:
-                return {'error': 'its not possible that this error happens but Im just checking'}
+        if move_troops <= 0 or (attacker_troops - move_troops) < 1:
+            return {'error': 'its not possible that this error happens but Im just checking'}
 
         main_game.nodes[attacking_id].number_of_troops = attacker_troops - move_troops
         main_game.nodes[target_id].number_of_troops = move_troops
